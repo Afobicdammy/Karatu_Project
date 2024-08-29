@@ -33,7 +33,7 @@ class Person:
        
 
 class Student(Person):
-    def __init__(self, id_number, name, major):
+    def __init__(self, name, id_number, major):
         super().__init__(id_number, name)
         self.major = major
         self.course_list = []
@@ -50,7 +50,7 @@ class Instructor(Person):
     
 
     def __str__(self) -> str:
-         return f"Students: {self.name}, ID:{self.id_number}, Major:{self.department}"
+         return f"Students: {self.name}, ID:{self.id_number}, Department:{self.department}"
 
 
 
@@ -78,10 +78,10 @@ class Course:
         pass
 
     def __str__(self) -> str:
-         return f"Students: {self.name}, ID:{self.course_id}"
+         return f"Students: {self.course_name}, ID:{self.course_id}"
      
  
-class Enrollments:
+class Enrollment:
     def __init__(self, student, grade):
         self.student = student
         self.grade = grade
@@ -99,33 +99,62 @@ class Enrollments:
 
 class Blackboard:
     def __init__(self):
+        self.students = []
+        self.instructors = []
+        self.course = []
+        self.enrollments = []
+
+    def add_student(self, student):
+        self.students.append(student)
         pass
 
-    def add_student():
+    def remove_student(self, student):
+        self.students.remove(student)
         pass
 
-    def remove_student():
+    def update_student(self, student, change_name =None, Change_major = None):
+        if change_name:
+            student.name = change_name
+        if Change_major:
+            student.major = Change_major
         pass
 
-    def update_student():
+    def add_instructor(self, instructor):
+        self.instructors.append(instructor)
         pass
 
-    def add_instructor():
+    def remove_instructor(self, instructor):
+        self.instrctor.remove(instructor)
+
+
+    def update_instructor(self, instructor, change_name =None, Change_department = None):
+         if change_name:
+            instructor.name = change_name
+         if Change_department:
+            instructor.department = Change_department
+
+    def add_courses(self, course):
+        self.courses.append(course)
         pass
 
-    def remove_instructor():
+    def remove_courses(self, course):
+        self.courses.remove(course)
         pass
 
-    def update_instructor():
-        pass
+    def enroll_student(self,student,course):
+        if student not in course.enrolled_students:
+            course.add_student(student)
+            enrollment = Enrollment(student, course)
+            self.enrollments.append(enrollment)
 
-    def add_courses():
-        pass
+    def assign_grade(self, student, course, grade):
+        for enrollment in self.enrollments:
+            if enrollment.student == student and enrollment.course == course:
+                enrollment.assign_grade(grade)
 
-    def remove_courses():
-        pass
-
-    def update_courses():
-        pass
-
+    def get_course_student(self,course):
+        return course.enrolled_students
     
+    def get_student_course(self,student):
+        return [enrollment.course for enrollment in self.enrollments if enrollment.student == student]
+        
