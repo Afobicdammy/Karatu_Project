@@ -53,7 +53,6 @@ class Instructor(Person):
          return f"Students: {self.name}, ID:{self.id_number}, Department:{self.department}"
 
 
-
 class Course:
     def __init__(self, course_name, course_id):
         self.course_name = course_name
@@ -79,12 +78,11 @@ class Course:
 
     def __str__(self) -> str:
          return f"Students: {self.course_name}, ID:{self.course_id}"
-     
- 
+      
 class Enrollment:
-    def __init__(self, student, grade):
+    def __init__(self, student, course):
         self.student = student
-        self.grade = grade
+        self.course = course
         self.grade = None
         pass
 
@@ -95,8 +93,6 @@ class Enrollment:
     def __str__(self) -> str:
          return f"Students: {self.name}, ID:{self.course_id}, Grade: {self.grade}"
    
-
-
 class Blackboard:
     def __init__(self):
         self.students = []
@@ -152,9 +148,11 @@ class Blackboard:
             if enrollment.student == student and enrollment.course == course:
                 enrollment.assign_grade(grade)
 
-    def get_course_student(self,course):
+    def get_course_student(self,course): # get list of students in a course
         return course.enrolled_students
     
-    def get_student_course(self,student):
+    def get_student_course(self,student): # get the courses a student is taking
         return [enrollment.course for enrollment in self.enrollments if enrollment.student == student]
-        
+    
+
+    # Needs to overide wit a string method    
