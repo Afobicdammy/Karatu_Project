@@ -35,6 +35,8 @@ class Person:
 class Student(Person):
     def __init__(self, name, id_number, major):
         super().__init__(id_number, name)
+        self.name = name
+        self.id_number = id_number
         self.major = major
         self.course_list = []
 
@@ -44,15 +46,17 @@ class Student(Person):
     def __repr__(self):
         return self.__str__()
 
+
 class Instructor(Person):
     def __init__(self, id_number, name, department):
         super().__init__(id_number,name)
         self.department = department
+        self.name = name
+        self.id_number = id_number
         self.course_list = []
     
-
     def __str__(self) -> str:
-         return f"Students: {self.name}, ID:{self.id_number}, Department:{self.department}"
+         return f"Instructor: {self.name}, ID:{self.id_number}, Department:{self.department}"
 
 
 class Course:
@@ -60,23 +64,19 @@ class Course:
         self.course_name = course_name
         self.course_id = course_id
         self.enrolled_students = []
-        pass
 
     def add_student(self, student):
         if student not in self.enrolled_students:
             self.enrolled_students.append(student)
-            pass
         else:
             print("Student already entrolled")
 
     def remove_student(self, student):
         if student in self.enrolled_students:
             self.enrolled_students.remove(student)
-            pass
         else:
             print("student not found")
-            pass
-        pass
+
 
     def __str__(self) -> str:
          return f"Students: {self.course_name}, ID:{self.course_id}"
@@ -129,7 +129,7 @@ class Blackboard:
         self.instrctor.remove(instructor)
 
 
-    def update_instructor(self, instructor, change_name =None, Change_department = None):
+    def update_instructor(self, instructor, change_name = None, Change_department = None):
          if change_name:
             instructor.name = change_name
          if Change_department:
@@ -159,9 +159,4 @@ class Blackboard:
     
     def get_student_course(self,student): # get the courses a student is taking
         return [enrollment.course for enrollment in self.enrollments if enrollment.student == student]
-    
 
-    def __str__(self) -> str:
-         return f"Students: {self.name}, ID:{self.course_id}"
-
-    # Needs to overide wit a string method    
